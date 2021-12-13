@@ -42,7 +42,7 @@ class FolioReaderPlayerMenu: UIViewController, SMSegmentViewDelegate, UIGestureR
         view.addGestureRecognizer(tapGesture)
 
         // Menu view
-        menuView = UIView(frame: CGRect(x: 0, y: view.frame.height-165, width: view.frame.width, height: view.frame.height))
+        menuView = UIView(frame: CGRect(x: 0, y: view.frame.height-115, width: view.frame.width, height: view.frame.height))
         menuView.backgroundColor = self.folioReader.isNight(self.readerConfig.nightModeNavBackground, self.readerConfig.daysModeNavBackground)
         menuView.autoresizingMask = .flexibleWidth
         menuView.layer.shadowColor = UIColor.black.cgColor
@@ -81,7 +81,7 @@ class FolioReaderPlayerMenu: UIViewController, SMSegmentViewDelegate, UIGestureR
         prevBtn.setImage(prevNormal, for: UIControl.State())
         prevBtn.setImage(prevSelected, for: .selected)
         prevBtn.addTarget(self, action: #selector(FolioReaderPlayerMenu.prevChapter(_:)), for: .touchUpInside)
-        menuView.addSubview(prevBtn)
+//        menuView.addSubview(prevBtn)
 
         // play / pause button
         let playPauseBtn = UIButton(frame: CGRect(x: Int(prevBtn.frame.origin.x) + padX + size, y: 0, width: size, height: size))
@@ -102,7 +102,7 @@ class FolioReaderPlayerMenu: UIViewController, SMSegmentViewDelegate, UIGestureR
         nextBtn.setImage(nextNormal, for: UIControl.State())
         nextBtn.setImage(nextSelected, for: .selected)
         nextBtn.addTarget(self, action: #selector(FolioReaderPlayerMenu.nextChapter(_:)), for: .touchUpInside)
-        menuView.addSubview(nextBtn)
+//        menuView.addSubview(nextBtn)
 
 
         // Separator
@@ -111,7 +111,7 @@ class FolioReaderPlayerMenu: UIViewController, SMSegmentViewDelegate, UIGestureR
         menuView.addSubview(line)
 
         // audio playback rate adjust
-        let playbackRate = SMSegmentView(frame: CGRect(x: 15, y: line.frame.height+line.frame.origin.y, width: view.frame.width-30, height: 55),
+        let playbackRate = SMSegmentView(frame: CGRect(x: 15, y: line.frame.height+line.frame.origin.y, width: view.frame.width-30, height: 0),
                                          separatorColour: UIColor.clear,
                                          separatorWidth: 0,
                                          segmentProperties:  [
@@ -130,8 +130,6 @@ class FolioReaderPlayerMenu: UIViewController, SMSegmentViewDelegate, UIGestureR
         playbackRate.segmentTitleFont = UIFont(name: "Avenir-Light", size: 17)!
         playbackRate.selectSegmentAtIndex(Int(self.folioReader.currentAudioRate))
         menuView.addSubview(playbackRate)
-
-
         // Separator
         let line2 = UIView(frame: CGRect(x: 0, y: playbackRate.frame.height+playbackRate.frame.origin.y, width: view.frame.width, height: 1))
         line2.backgroundColor = self.readerConfig.nightModeSeparatorColor
@@ -250,7 +248,7 @@ class FolioReaderPlayerMenu: UIViewController, SMSegmentViewDelegate, UIGestureR
     @objc func togglePlay(_ sender: UIButton!) {
         sender.isSelected = sender.isSelected != true
         self.folioReader.readerAudioPlayer?.togglePlay()
-        closeView()
+//        closeView()
     }
 
     @objc func changeStyle(_ sender: UIButton!) {

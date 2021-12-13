@@ -276,8 +276,13 @@ open class FolioReaderWebView: WKWebView {
     }
 
     @objc func play(_ sender: UIMenuController?) {
-        self.folioReader.readerAudioPlayer?.play()
-
+//        self.folioReader.readerAudioPlayer?.play()
+        folioReader.readerCenter?.currentPage?.webView?.evaluateJavaScript("window.getSelection().toString()", completionHandler: { [weak self] text, _ in
+            if let text = text as? String,
+               let self = self{
+                self.folioReader.readerAudioPlayer?.playOnly(text)
+            }
+        })
         self.clearTextSelection()
     }
 

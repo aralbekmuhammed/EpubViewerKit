@@ -348,7 +348,25 @@ open class FolioReaderAudioPlayer: NSObject {
 
         return self.nextAudioFragment()
     }
+    func playOnly(_ text: String){
+        isTextToSpeech = true
+        playing = false
+        if synthesizer == nil {
+            synthesizer = AVSpeechSynthesizer()
+            synthesizer.delegate = self
+            setRate(self.folioReader.currentAudioRate)
+        }
 
+        let utterance = AVSpeechUtterance(string: text)
+        utterance.rate = utteranceRate
+        utterance.voice = AVSpeechSynthesisVoice(language: self.book.metadata.language)
+        if synthesizer.isSpeaking {
+            stopSynthesizer()
+        }
+        synthesizer.speak(utterance)
+        updateNowPlayingInfo()
+
+    }
     func playText(_ href: String, text: String) {
         isTextToSpeech = true
         playing = true
